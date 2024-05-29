@@ -7,7 +7,7 @@ import PvC from '@/assets/images/player-vs-cpu.svg';
 export default function Home() {
     return (
         <main className='flex justify-center items-center h-screen w-screen'>
-            <div className='mx-[20px] w-full max-w-[480px] md:px-[40px] md:pt-[70px] md:pb-[60px] md:shadow-classic md:rounded-[40px] md:border-[3px] md:border-black md:bg-purple'>
+            <div className='mx-[20px] w-full max-w-[480px] md:px-[40px] md:pt-[70px] md:pb-[60px] md:shadow-classic md:rounded-[40px] md:border-[3px] md:border-black md:shadow-[0_10px_0_0_black] md:bg-purple'>
                 <Image src={logo} alt='logo' className='mx-auto mb-[79px]' />
 
                 <Link
