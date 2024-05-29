@@ -2,6 +2,7 @@ export enum Player {
     One,
     Two,
     Neither,
+    CPU,
 }
 export function generateBlankBoard(): Player[] {
     const board: Player[] = [];
@@ -116,4 +117,84 @@ export function getWinningIndices(
     }
 
     return null;
+}
+
+export function getCPUMove(board: Player[], player: Player): number {
+    const rows = 6;
+    const cols = 7;
+    const opponent = player === Player.CPU ? Player.One : Player.CPU;
+
+    // Helper function to get the value at a specific row and column
+    function getCell(row: number, col: number): Player {
+        return board[row * cols + col];
+    }
+
+    // Helper function to set the value at a specific row and column
+    function setCell(row: number, col: number, value: Player): void {
+        board[row * cols + col] = value;
+    }
+
+    // Helper function to check if a column is full
+    function isColumnFull(col: number): boolean {
+        return getCell(0, col) !== Player.Neither;
+    }
+
+    // Helper function to get the next available row in a column
+    function getNextAvailableRow(col: number): number | null {
+        for (let row = rows - 1; row >= 0; row--) {
+            if (getCell(row, col) === Player.Neither) {
+                return row;
+            }
+        }
+        return null;
+    }
+
+    // Check if a move leads to a win
+    function isWinningMove(
+        row: number,
+        col: number,
+        currentPlayer: Player,
+    ): boolean {
+        setCell(row, col, currentPlayer);
+        const winningIndices = getWinningIndices(board, currentPlayer);
+        setCell(row, col, Player.Neither); // Reset cell
+        return winningIndices !== null;
+    }
+
+    // First, check if the AI can win in the next move
+    for (let col = 0; col < cols; col++) {
+        if (!isColumnFull(col)) {
+            const row = getNextAvailableRow(col);
+            if (row !== null && isWinningMove(row, col, player)) {
+                return col;
+            }
+        }
+    }
+
+    // Second, check if the opponent can win in the next move and block it
+    for (let col = 0; col < cols; col++) {
+        if (!isColumnFull(col)) {
+            const row = getNextAvailableRow(col);
+            if (row !== null && isWinningMove(row, col, opponent)) {
+                return col;
+            }
+        }
+    }
+
+    // Otherwise, pick a column that is not full and has a strategic advantage (e.g., center columns)
+    const preferredColumns = [3, 2, 4, 1, 5, 0, 6];
+    for (let col of preferredColumns) {
+        if (!isColumnFull(col)) {
+            return col;
+        }
+    }
+
+    // Fallback in case all preferred columns are full
+    for (let col = 0; col < cols; col++) {
+        if (!isColumnFull(col)) {
+            return col;
+        }
+    }
+
+    throw new Error('Board is full, no moves available');
 }
