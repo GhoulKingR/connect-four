@@ -134,7 +134,8 @@ function Board(props: Props) {
                     }}
                     className='mx-auto mt-[-25px] text-center bg-cover w-[191px] h-[160px] text-center pt-[41px] mb-[96px] md:mt-[-40px]'>
                     <div>
-                        PLAYER {props.turn === Player.One ? '1' : '2'}'S TURN
+                        PLAYER {props.turn === Player.One ? '1' : '2'}&apos;S
+                        TURN
                     </div>
                     <div className='text-head-l'>{countDown}s</div>
                 </div>
