@@ -2,32 +2,63 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+@font-face {
+    font-family: 'Space Grotesk';
+    src: url(../assets/fonts/SpaceGrotesk-VariableFont_wght.ttf);
+    font-optical-sizing: auto;
+    font-style: normal;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+:root {
+    --border: 3px solid black;
+    --purple: #7945ff;
+    --dark-purple: #5c2dd5;
+    --red: #FD6687;
+    --yellow: #FFCE67;
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+    color: #000000;
+    background: var(--purple);
+    font-family: 'Space Grotesk' !important;
+    font-weight: 600;
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+.medium {
+    font-weight: 500 !important;
+    opacity: 66.11%;
+}
+
+.border-shadow {
+    border: var(--border);
+    box-shadow: 0 10px 0 0 black;
+}
+
+.with-hover:hover {
+    border: 3px solid var(--dark-purple);
+    box-shadow: 0 10px 0 0 var(--dark-purple);
+}
+
+.inner-purple-shadow {
+    border: var(--border);
+    box-shadow: 0 10px 0 0 black inset;
+    background-color: var(--purple);
+}
+
+.player-one-circle {
+    border: var(--border);
+    background-color: var(--red);
+    box-shadow: 0 5px 0 0 rgba(0, 0, 0, .5) inset;
+}
+
+.player-two-circle {
+    border: var(--border);
+    background-color: var(--yellow);
+    box-shadow: 0 5px 0 0 rgba(0, 0, 0, .5) inset;
+}
+
+@media (min-width: 768px) {
+    body {
+        background-color: #5c2dd5;
+    }
 }
